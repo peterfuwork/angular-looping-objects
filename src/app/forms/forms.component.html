@@ -1,0 +1,34 @@
+<form>
+  <div *ngFor="let form of formInfo">
+    <div class="form" *ngIf="form.paramList[0].isForm">
+      <h6>{{ form.header }}</h6>
+      <div class="row">
+        <div *ngFor="let formData of form.paramList[0].formType | keyvalue: returnZero">
+          <mat-form-field class="col" [ngClass]="{
+          's1': formData.value.length <= 6 && formData.value.length >= 0,
+          's2': formData.value.length <= 15 && formData.value.length > 6,
+          's3': formData.value.length <= 20 && formData.value.length > 15,
+          's4': formData.value.length <= 25 && formData.value.length > 20,
+          's6': formData.value.length > 25}">
+            <input matInput [placeholder]="formData.key" [value]="formData.value" />
+          </mat-form-field>
+        </div>
+      </div>
+      <div *ngFor="let formDetail of form.paramList[0].formFields | keyvalue: returnZero">
+        <h6>{{formDetail.key}}</h6>
+        <div class="row">
+          <div *ngFor="let formDetailField of formDetail.value | keyvalue: returnZero">
+            <mat-form-field class="col" [ngClass]="{
+        's1': formDetailField.value.length <= 6 && formDetailField.value.length >= 0,
+        's2': formDetailField.value.length <= 15 && formDetailField.value.length > 6,
+        's3': formDetailField.value.length <= 20 && formDetailField.value.length > 15,
+        's4': formDetailField.value.length <= 25 && formDetailField.value.length > 20,
+        's6': formDetailField.value.length > 25}">
+              <input matInput [placeholder]="formDetailField.key" [value]="formDetailField.value" />
+            </mat-form-field>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</form>
