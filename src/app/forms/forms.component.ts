@@ -6,6 +6,7 @@ import { Component, OnInit } from "@angular/core";
   styleUrls: ["./forms.component.scss"]
 })
 export class FormsComponent implements OnInit {
+  public selectFormSection: string = "";
   constructor() {}
 
   ngOnInit() {}
@@ -77,4 +78,15 @@ export class FormsComponent implements OnInit {
       ]
     }
   ];
+
+  public ExpendAccordionSection(event, formDetailSection) {
+    console.dir(event.target);
+    if (event.target.nextSibling.classList.contains("active")) {
+      //true
+      this.selectFormSection = "";
+    } else {
+      //false
+      this.selectFormSection = formDetailSection.key;
+    }
+  }
 }
