@@ -7,6 +7,10 @@ import { Component, OnInit } from "@angular/core";
 })
 export class FormsComponent implements OnInit {
   public selectFormSection: string = "";
+  public currentData: object[] = [
+    { type: "BMW", model: "M3", color: "pink" },
+    { type: "Fiat", model: "500", color: "white" }
+  ];
   constructor() {}
 
   ngOnInit() {}
@@ -17,7 +21,7 @@ export class FormsComponent implements OnInit {
 
   public formInfo = [
     {
-      header: "Randam Data",
+      header: "FORM",
       paramList: [
         {
           isForm: true,

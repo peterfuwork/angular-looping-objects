@@ -1,8 +1,10 @@
 <form>
   <div *ngFor="let form of formInfo">
-    <div class="panel-form" *ngIf="form.paramList[0].isForm">
-      <h6>{{ form.header }}</h6>
-      <div class="row">
+    <div class="panel-form row" *ngIf="form.paramList[0].isForm">
+      <div class="col s1 title">
+        {{ form.header }}
+      </div>
+      <div class="row form-header">
         <div *ngFor="let formData of form.paramList[0].formType | keyvalue: returnZero">
           <mat-form-field class="col" [ngClass]="{
           's1': formData.value.length <= 6 && formData.value.length >= 0,
@@ -38,4 +40,5 @@
       </div>
     </div>
   </div>
+  <app-testing [testingData]="currentData"></app-testing>
 </form>

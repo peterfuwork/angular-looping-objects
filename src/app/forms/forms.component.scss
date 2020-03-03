@@ -21,6 +21,10 @@
   border: none;
 }
 
+.panel-form .title {
+  font-size: 2rem;
+}
+
 .panel-form .panel-section .panel-body {
   height: auto;
   max-height: 0;
@@ -32,4 +36,10 @@
   height: auto;
   max-height: 600px;
   overflow: hidden;
+}
+
+.panel-form .form-header {
+  margin-bottom: 0;
+  padding-top: 0.4rem;
+  border: 1px solid #000;
 }
