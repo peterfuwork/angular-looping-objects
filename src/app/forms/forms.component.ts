@@ -6,19 +6,6 @@ import { Component, OnInit } from "@angular/core";
   styleUrls: ["./forms.component.scss"]
 })
 export class FormsComponent implements OnInit {
-  public selectFormSection: string = "";
-  public currentData: object[] = [
-    { type: "BMW", model: "M3", color: "pink" },
-    { type: "Fiat", model: "500", color: "white" }
-  ];
-  constructor() {}
-
-  ngOnInit() {}
-
-  returnZero() {
-    return 0;
-  }
-
   public formInfo = [
     {
       header: "FORM",
@@ -83,13 +70,26 @@ export class FormsComponent implements OnInit {
     }
   ];
 
+  public selectFormSection = "";
+  public currentData: object[] = [
+    { type: "BMW", model: "M3", color: "pink" },
+    { type: "Fiat", model: "500", color: "white" }
+  ];
+  constructor() {}
+
+  ngOnInit() {}
+
+  returnZero() {
+    return 0;
+  }
+
   public ExpendAccordionSection(event, formDetailSection) {
     console.dir(event.target);
     if (event.target.nextSibling.classList.contains("active")) {
-      //true
+      // true
       this.selectFormSection = "";
     } else {
-      //false
+      // false
       this.selectFormSection = formDetailSection.key;
     }
   }

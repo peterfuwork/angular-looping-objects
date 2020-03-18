@@ -13,6 +13,10 @@
   <h2>Forms</h2>
   <p>some example form</p>
   <app-forms></app-forms>
+  <div>
+    {{ addresses.value }}
+    <app-selection [(updateAddresses)]="addresses.value"></app-selection>
+  </div>
 </div>
 
 <router-outlet></router-outlet>
