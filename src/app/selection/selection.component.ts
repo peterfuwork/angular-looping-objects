@@ -6,30 +6,33 @@ import { Component, OnInit, Input, Output, EventEmitter } from "@angular/core";
   styleUrls: ["./selection.component.scss"]
 })
 export class SelectionComponent implements OnInit {
-  @Input() updateAddresses: any = [];
-  @Output() updateAddressesChange = new EventEmitter();
+  @Input() updatePayload: any = [];
+  @Output() updatePayloadChange = new EventEmitter();
 
   public displayAddress = [
     {
-      addressline1: "1234 W LINE AVE",
+      id: 1,
+      addressline1: "1234 W Wonderful AVE",
       addressline2: "Building 5 Floor 6",
       city: "APPLEWOOD",
       state: "CA",
-      zip: "91234"
+      zip: "90000"
     },
     {
-      addressline1: "1234 E LINE ST",
+      id: 2,
+      addressline1: "1234 E Wonderful ST",
       addressline2: "Building 2 Floor 2",
       city: "MAPLEWOOD",
       state: "CA",
-      zip: "91234"
+      zip: "90001"
     },
     {
-      addressline1: "1235 W LINE ST",
+      id: 3,
+      addressline1: "1235 W Wonderful AVE",
       addressline2: "Building 3 Floor 2",
       city: "HONEYWOOD",
       state: "CA",
-      zip: "91242"
+      zip: "90002"
     }
   ];
 
@@ -43,26 +46,42 @@ export class SelectionComponent implements OnInit {
 
   onSelectChange(event, eachAddress) {
     const checked = event.source.checked;
-    const parseValue = JSON.parse(this.updateAddresses);
+    let headerArr = ["AddressLine1", "AddressLine2", "CITY", "STATE", "ZIP"];
+    let tempAddressObj = {};
 
-    console.log(eachAddress);
+    this.updatePayload.forEach(payloadObj => {
+      if (payloadObj.type == "table") {
+        const parseValue = JSON.parse(payloadObj.value);
 
-    parseValue.forEach(obj => {
-      if (
-        obj["AddressLine1"] == eachAddress.value["addressline1"] &&
-        obj["AddressLine2"] == eachAddress.value["addressline2"] &&
-        obj["CITY"] == eachAddress.value["city"] &&
-        obj["STATE"] == eachAddress.value["state"] &&
-        obj["ZIP"] == eachAddress.value["zip"]
-      ) {
-        obj["Selected"] = true;
-      } else {
-        obj["Selected"] = false;
+        parseValue.forEach(obj => {
+          if (obj["Id"] == eachAddress.value["id"]) {
+            obj["Selected"] = true;
+
+            headerArr.map(header => {
+              tempAddressObj[header] = obj[header];
+            });
+          } else {
+            obj["Selected"] = false;
+          }
+        });
+        payloadObj.value = JSON.stringify(parseValue);
       }
     });
 
-    this.updateAddresses = JSON.stringify(parseValue);
-    this.updateAddressesChange.emit(this.updateAddresses);
+    this.updatePayload.forEach(payloadObj => {
+      if (payloadObj.type == "text") {
+        const smallCapName = payloadObj.name.toLowerCase();
+
+        for (let address in tempAddressObj) {
+          let smallCapAddress = address.toLowerCase();
+          if (smallCapName.includes(smallCapAddress)) {
+            payloadObj.value = tempAddressObj[address];
+          }
+        }
+      }
+    });
+
+    this.updatePayloadChange.emit(this.updatePayload);
     console.log(event);
     console.log(eachAddress);
   }

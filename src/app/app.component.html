@@ -14,8 +14,13 @@
   <p>some example form</p>
   <app-forms></app-forms>
   <div>
-    {{ addresses.value }}
-    <app-selection [(updateAddresses)]="addresses.value"></app-selection>
+    <ng-container *ngFor="let item of payload">
+      <ng-container *ngIf="item.type == 'text'">
+        <label>{{ item.value }}<br /></label>
+      </ng-container>
+    </ng-container>
+    {{ payload | json }}
+    <app-selection [(updatePayload)]="payload"></app-selection>
   </div>
 </div>
 
